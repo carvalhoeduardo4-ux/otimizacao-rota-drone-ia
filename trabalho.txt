@@ -1,0 +1,32 @@
+Otimização de Rotas para Drones de Entrega
+
+1. Motivação e contextualização
+Com o crescimento do e-commerce, o uso de veículos aéreos não tripulados (drones) para
+entregas de tornou-se uma realidade próxima. No entanto, o planejamento de rotas aéreas
+urbanas enfrenta desafios que sistemas de GPS comuns não resolvem: a necessidade de
+evitar zonas de exclusão aérea temporárias (como áreas de segurança, eventos ou obras
+com guindastes) e a variação de ventos que afeta o consumo de bateria. Diferente de
+carros, os drones operam em um espaço tridimensional onde a altitude e o consumo
+energético são críticos.
+
+2. Métodos utilizados
+Será utilizado o Algoritmo de Busca A*
+● Estado: Coordenadas (x, y, z) e nível de carga da bateria
+● Heurística (h): Distância Euclidiana 3D ponderada pelo custo energético
+(considerando a inclinação da subida)
+● Função de Custo (g): Distância percorrida somada a penalidades por proximidade de
+zonas de ruído ou restrição.
+O diferencial será a modelagem do grafo em camadas de altitude para desviar de obstáculos
+dinâmicos, comparando a eficiência da busca A* com uma busca sistemática simples
+(Largura).
+
+3. Dados ou ambientes
+O ambiente será um Grid 3D simulado em Python (utilizando bibliotecas como Matplotlib
+para visualização ou PyGame). Os dados de "No-Fly Zones" serão gerados de forma
+estocástica (aleatória) para representar prédios e áreas restritas da cidade. Não é
+necessário um mapa real; uma abstração de uma malha urbana densa é suficiente para
+validar a técnica.
+
+4. Resultado esperado
+Espera-se demonstrar que o algoritmo A* é capaz de encontrar a rota de menor consumo
+energético em tempo real, mesmo quando obstáculos são inseridos subitamente no mapa.

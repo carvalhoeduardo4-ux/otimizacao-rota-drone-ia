@@ -53,8 +53,10 @@ def obter_custo_movimento(dz, tipo_celula_destino):
     return custo
 
 
-def obter_vizinhos(posicao, ambiente):
+def obter_vizinhos(posicao, ambiente, origem_referencia=None, destino_referencia=None):
     x, y, z = posicao
+    origem_referencia = origem_referencia if origem_referencia is not None else ambiente.origem
+    destino_referencia = destino_referencia if destino_referencia is not None else ambiente.destino
     
     # As 6 direções permitidas: Frente, Trás, Esquerda, Direita, Subida, Descida
     movimentos = [
@@ -81,7 +83,7 @@ def obter_vizinhos(posicao, ambiente):
 
         #Regras de Altitude de Voo Cruzeiro (Segurança de Altitude)
         # Se NÃO for a célula exata de origem ou destino, o drone deve respeitar os limites operacionais
-        if (nx, ny, nz) != ambiente.origem and (nx, ny, nz) != ambiente.destino:
+        if (nx, ny, nz) != origem_referencia and (nx, ny, nz) != destino_referencia:
             if nz < ALTURA_MINIMA or nz > ALTURA_MAXIMA:
                 continue
 
@@ -100,9 +102,9 @@ def reconstruir_caminho(no):
     return caminho
 
 
-def astar(ambiente):
-    inicio = ambiente.origem
-    destino = ambiente.destino
+def astar(ambiente, inicio=None, destino=None):
+    inicio = ambiente.origem if inicio is None else inicio
+    destino = ambiente.destino if destino is None else destino
 
     if inicio is None or destino is None:
         return None, 0  # Retorna o caminho vazio e 0 nós visitados
@@ -126,7 +128,7 @@ def astar(ambiente):
 
         visitados.add(atual.posicao)
 
-        for v_pos in obter_vizinhos(atual.posicao, ambiente):
+        for v_pos in obter_vizinhos(atual.posicao, ambiente, inicio, destino):
             if v_pos in visitados:
                 continue
 

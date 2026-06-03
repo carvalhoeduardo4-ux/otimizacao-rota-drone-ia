@@ -1,0 +1,35 @@
+O QUE FALTA FAZER
+
+**********FEITO - JOHANN**********
+Tarefa 1: Implementação dos Obstáculos Dinâmicos (Código)
+* Onde mexer: No arquivo grid.py, dentro da função adicionar_obstaculo_dinamico().
+* O que fazer: Atualmente a função está vazia (retorna 0). 
+    É necessário criar uma lógica para espalhar alguns blocos do tipo DINAMICO 
+    (representando outros drones ou pássaros) pelo espaço aéreo.
+* Nota de integração: O integrante pode criar um laço de tempo onde esses obstáculos 
+    se movem a cada passo do drone, exigindo que o A* recalculasse a rota em tempo real.
+**********FEITO - JOHANN**********
+
+Tarefa 2: Coleta de Dados e Testes Comparativos (Resultados)
+* O que fazer: Rodar o arquivo main.py várias vezes mudando as configurações de 
+    densidade no cenário. Ele deve preencher uma planilha/tabela coletando amostras para o pôster.
+* Cenários para testar e tirar print do gráfico 3D:
+--- -> Cidade limpa (poucos prédios e pouco vento): Mostrar que o A* e a BFS 
+    encontram rotas parecidas, mas o A* processa mais rápido.
+--- -> Cidade densa e com muito vento (ex: mudar na main para quantidade=5, 
+    tamanho_zona=5 de vento): Tirar print da tabela provando que a BFS teve custo 
+    energético altíssimo (passou por dentro do vento) e o A* gastou mais passos, mas 
+    economizou muita energia contornando as nuvens roxas.
+
+Tarefa 3: Confecção do Pôster Acadêmico / Relatório
+* O que colocar na estrutura:
+--- -> Introdução: Justificativa do crescimento do uso de UAVs em cidades inteligentes e o 
+    problema do consumo de bateria e regulação aérea (NO_FLY).
+--- -> Metodologia: Explicar a matriz 3D, a modelagem das zonas de turbulência volumétricas, 
+    os custos físicos adotados (subida=3, descida=1, plano=1.5) e a heurística Euclidiana.
+--- -> Resultados: Colocar a tabela comparativa gerada pelo nosso terminal e colar os prints 
+    do gráfico 3D mostrando a rota inteligente do drone desviando dos prédios laranjas e 
+    das nuvens de vento roxas.
+--- -> Conclusão: Destacar que o A* cumpre com sucesso a função objetivo bi-critério 
+    (minimizar energia e evitar riscos), além de ser infinitamente mais eficiente computacionalmente 
+    do que uma busca sistemática cega (BFS), que consome muita memória expandindo nós desnecessários.

@@ -10,7 +10,24 @@ from grid import (
 )
 
 
-def visualizar_ambiente_3d(ambiente, caminho=None):
+def _desenhar_caminho(ax, ambiente, caminho, cor, label):
+    if caminho is None or len(caminho) == 0:
+        return
+
+    xs, ys, zs = [], [], []
+    for x, y, z in caminho:
+        xs.append(x + 0.5)
+        ys.append(y + 0.5)
+
+        if (x, y, z) == ambiente.origem or (x, y, z) == ambiente.destino:
+            zs.append(z)
+        else:
+            zs.append(z + 0.5)
+
+    ax.plot(xs, ys, zs, linewidth=4, color=cor, marker="o", markersize=6, label=label)
+
+
+def visualizar_ambiente_3d(ambiente, caminho_astar=None, caminho_bfs=None):
     fig = plt.figure(figsize=(14, 9))
     ax = fig.add_subplot(111, projection='3d')
 
@@ -70,25 +87,39 @@ def visualizar_ambiente_3d(ambiente, caminho=None):
     if dinamico_x:
         ax.scatter(dinamico_x, dinamico_y, dinamico_z, marker="X", s=120, color="crimson", label="Obstáculo Dinâmico")
 
+    if getattr(ambiente, "drones_dinamicos", None):
+        trajeto_rotulado = False
+        for drone in ambiente.drones_dinamicos:
+            trajeto = drone.get("trajeto", [])
+            if len(trajeto) < 2:
+                continue
+
+            xs, ys, zs = [], [], []
+            for x, y, z in trajeto:
+                xs.append(x + 0.5)
+                ys.append(y + 0.5)
+                zs.append(z + 0.5)
+
+            ax.plot(
+                xs,
+                ys,
+                zs,
+                linewidth=2,
+                color="crimson",
+                alpha=0.55,
+                label="Trajeto dos Drones Dinâmicos" if not trajeto_rotulado else None,
+            )
+            trajeto_rotulado = True
+
     if origem_pt:
         ax.scatter(origem_pt[0], origem_pt[1], origem_pt[2], marker="o", s=250, color="blue", label="Origem (Decolagem)")
 
     if destino_pt:
         ax.scatter(destino_pt[0], destino_pt[1], destino_pt[2], marker="o", s=250, color="green", label="Destino (Pouso)")
 
-    #DESENHA ROTA DO DRONE
-    if caminho is not None and len(caminho) > 0:
-        xs, ys, zs = [], [], []
-        for x, y, z in caminho:
-            xs.append(x + 0.5)
-            ys.append(y + 0.5)
-            
-            if (x, y, z) == ambiente.origem or (x, y, z) == ambiente.destino:
-                zs.append(z)
-            else:
-                zs.append(z + 0.5)
-            
-        ax.plot(xs, ys, zs, linewidth=4, color="cyan", marker="o", markersize=6, label="Rota Otimizada A*")
+    #DESENHA ROTAS DO DRONE
+    _desenhar_caminho(ax, ambiente, caminho_astar, "cyan", "Rota Otimizada A*")
+    _desenhar_caminho(ax, ambiente, caminho_bfs, "gold", "Rota BFS")
 
     #CONFIGURAÇÕES VISUAIS E LEGENDAS
     ax.set_xlabel("Eixo Urbano X")

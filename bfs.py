@@ -1,13 +1,13 @@
 from collections import deque
 from astar import obter_vizinhos
 
-def bfs(ambiente):
+def bfs(ambiente, inicio=None, destino=None):
     """
     Implementação da Busca em Largura (BFS) para o ambiente 3D.
     Retorna o caminho encontrado e o número de nós explorados.
     """
-    inicio = ambiente.origem
-    destino = ambiente.destino
+    inicio = ambiente.origem if inicio is None else inicio
+    destino = ambiente.destino if destino is None else destino
 
     if inicio is None or destino is None:
         return None, 0
@@ -24,7 +24,7 @@ def bfs(ambiente):
         if atual == destino:
             return caminho, nos_explorados
 
-        for vizinho in obter_vizinhos(atual, ambiente):
+        for vizinho in obter_vizinhos(atual, ambiente, inicio, destino):
             if vizinho not in visitados:
                 visitados.add(vizinho)
                 fila.append((vizinho, caminho + [vizinho]))

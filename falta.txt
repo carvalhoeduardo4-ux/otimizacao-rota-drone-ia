@@ -10,6 +10,7 @@ Tarefa 1: Implementação dos Obstáculos Dinâmicos (Código)
     se movem a cada passo do drone, exigindo que o A* recalculasse a rota em tempo real.
 **********FEITO - JOHANN**********
 
+**********FEITO - JOHANN**********
 Tarefa 2: Coleta de Dados e Testes Comparativos (Resultados)
 * O que fazer: Rodar o arquivo main.py várias vezes mudando as configurações de 
     densidade no cenário. Ele deve preencher uma planilha/tabela coletando amostras para o pôster.
@@ -20,6 +21,7 @@ Tarefa 2: Coleta de Dados e Testes Comparativos (Resultados)
     tamanho_zona=5 de vento): Tirar print da tabela provando que a BFS teve custo 
     energético altíssimo (passou por dentro do vento) e o A* gastou mais passos, mas 
     economizou muita energia contornando as nuvens roxas.
+**********FEITO - JOHANN**********
 
 Tarefa 3: Confecção do Pôster Acadêmico / Relatório
 * O que colocar na estrutura:

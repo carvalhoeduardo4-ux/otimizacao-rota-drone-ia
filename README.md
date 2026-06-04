@@ -17,6 +17,6 @@ Trabalho prático de Inteligência Artificial focado no planejamento de rotas ó
 ## Coleta Automática de Resultados
 Para gerar várias amostras por cenário e alimentar a tabela do pôster, execute:
 ```bash
-python coletar_tarefa2.py --amostras 5 --cenarios cidade_limpa cidade_densa cidade_densa_vento_forte
+python coletar_dados.py --amostras 5 --cenarios cidade_limpa cidade_densa cidade_densa_vento_forte
 ```
 Isso grava as amostras em `resultados.csv` sem abrir a visualização 3D.
